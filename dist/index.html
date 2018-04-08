@@ -1,0 +1,30 @@
+<!doctype html>
+<html ng-app="pa">
+  <head>
+    <meta charset="utf-8">
+    <title page-title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <link rel="stylesheet" href="styles/vendor.css">
+
+    <link rel="stylesheet" href="styles/app.css">
+  </head>
+  <body ng-controller="indexController as cn">
+    <!--[if lt IE 10]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <div ui-view></div>
+    <toaster-container></toaster-container>
+    <!-- below fix is for electron-jquery issue. https://stackoverflow.com/questions/32621988/electron-jquery-is-not-defined  -->
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+
+    <script src="scripts/vendor.js"></script>
+
+    <script src="scripts/app.js"></script>
+    <script>if (window.module) module = window.module;</script>
+  </body>
+</html>

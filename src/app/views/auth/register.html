@@ -1,0 +1,135 @@
+<div class="middle-box text-center animated fadeInDown">
+  <img alt="image-logo" src="assets/tango.png" class="tango-logo"/>
+  <div class="row">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <p class="header">Join Tango today.</p>
+        <p class="header">It's free and always will be</p>
+      </div>
+
+      <div class="ibox-content">
+        <div class="row">
+          <div class="col-sm-7 form">
+            <form role="form" name="register" novalidate ng-submit="signupForm()">
+              <div class="form-group">
+                <div class="col-sm-8 pad-0">
+                  <input type="email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" ng-class="{submitted:register.submitted}" placeholder="Email" class="form-control btn-default" name="email" ng-model="user.email" required>
+                </div>
+                <div class="m-t-xs" ng-show="register.email.$invalid && register.submitted">
+                  <p class="text-danger pull-right" ng-show="register.email.$error.required"><i class="fa fa-times"></i>Required field</p>
+                  <p class="text-danger pull-right" ng-show="register.email.$error.pattern"><i class="fa fa-times"></i>Invalid email id</p>
+                  <p class="text-danger pull-right" ng-show="register.email.$error.aleadyRegistered"><i class="fa fa-times"></i>Email already registered, <a>login</a></p>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-sm-8 pad-0">
+                  <input type="text" ng-class="{submitted:register.submitted}" placeholder="Username" class="form-control btn-default" name="username" ng-model="user.username" ng-change="checkUsername(user.username)" required>
+                </div>
+                <div class="m-t-xs" ng-show="register.username.$invalid && register.submitted">
+                  <p class="text-danger pull-right" ng-show="register.username.$error.required"><i class="fa fa-times"></i>Required field</p>
+                  <p class="text-danger pull-right" ng-show="register.username.$error.aleadyRegisteredUsername"><i class="fa fa-times"></i>Username already taken</p>
+                </div>
+                <p class="text-success pull-right" ng-if="successUsername"><i class="fa fa-check"></i>Avaliable</p>
+              </div>
+
+              <div class="form-group">
+                <div class="col-sm-8 pad-0">
+                  <input type="password" ng-class="{submitted:register.submitted}" placeholder="Password" class="form-control btn-default" name="password" ng-model="user.password" required>
+                </div> 
+                <div class="m-t-xs" ng-show="register.password.$invalid && register.submitted">
+                  <p class="text-danger pull-right" ng-show="register.password.$error.required"><i class="fa fa-times"></i>Required field</p>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-sm-8 pad-0">
+                  <input type="password" ng-class="{submitted:register.submitted}" placeholder="Confirm Password" class="form-control btn-default" name="confirmPassword" ng-model="user.confirmPassword" compare-to="user.password" required>
+                </div> 
+                <div class="m-t-xs" ng-show="register.confirmPassword.$invalid && register.submitted">
+                  <p class="text-danger pull-right" ng-show="register.confirmPassword.$error.required"><i class="fa fa-times"></i>Required field</p>
+                  <p class="text-danger pull-right" ng-show="register.confirmPassword.$error.compareTo"><i class="fa fa-times"></i>Didn't match</p>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-sm-8 pad-0">
+                  <select class="select btn-default" ng-model="user.gender" ng-class="{submitted:register.submitted}" ng-options="x for x in genders" required name="gender">
+                    <option disabled selected value>Select a Gender</option>
+                  </select>
+                </div> 
+                <div class="m-t-xs" ng-show="register.gender.$invalid && register.submitted">
+                  <p class="text-danger pull-right" ng-show="register.gender.$error.required"><i class="fa fa-times"></i>Required field</p>
+                </div>
+                <div class="m-t-xs" ng-show="register.gender.$valid && register.submitted">
+                  <p class="text-danger pull-right" ng-show="register.gender.$sucess.required"><i class="fa fa-times"></i>field</p>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-sm-8 pad-0">
+                  <p class="policy-info">By clicking Register, you agree to our <a>Terms</a> and that you have read our <a>Data Use Policy</a>, including our <a>Cookie User</a>.</p>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-sm-8 pad-0">
+                  <a class="btn pull-left btn-enable" ui-sref="login"><strong>Back</strong></a>
+                  <button class="btn pull-right btn-enable" ng-class="{gray: register.$invalid}" type="submit"><strong>Register</strong></button>
+                </div>
+              </div>
+            </form>
+          </div>
+          
+          <div class="col-sm-5 socail-login">
+            <button class="btn facebook-btn"><i class="fa fa-facebook"></i><span>Register with Facebook</span></button>
+          </div>
+          <div class="col-sm-5 socail-login-divider">
+            <p class="or">OR</p>
+          </div>
+          <div class="col-sm-5 socail-login">
+            <button class="btn twitter-btn"><i class="fa fa-twitter"></i><span>Register with Twitter</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <p class="header">Learn more!</p>
+        <p class="header">Check out our demos quick guides to our app.</p>
+      </div>
+
+      <div class="ibox-content">
+        <div class="row content2">
+          <div class="video-item">
+            <img alt="image-video" id="play-video" class="icon-play-youtube" src="assets/play-btn.png"/>
+            <img alt="image-video" class="icon-play-ytb-loading" src="assets/reload.gif"/>
+          </div>
+          <figure responsive-video>
+            <iframe id="video" src="https://www.youtube.com/embed/nQRkUSmnxcQ?rel=0&modestbranding=0&showinfo=0" width="700" height="370" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+          </figure>          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $(".icon-play-ytb-loading").show();
+    $('#play-video').on('click', function(ev) {
+      $(".icon-play-youtube").hide();
+      $("#video")[0].src += "&autoplay=1";
+      ev.preventDefault();
+    });
+
+    $("iframe").load(function(){ 
+    $(".icon-play-ytb-loading").hide(); 
+      $(this).contents().on("mousedown, mouseup, click", function(){
+        $(".ytp-button").hide();
+        $(".icon-play-youtube").hide();
+      });
+    });
+  });
+</script>
