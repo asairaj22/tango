@@ -1,223 +1,30 @@
-<div class="welcome-bg">
-    <div class="welcome-padd">
-        <img src="assets\welcome-compas.png" class="w-100">
-    </div>
-</div>
+<!doctype html>
+<html ng-app="pa">
+  <head>
+    <meta charset="utf-8">
+    <title page-title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-.welcome-bg{
-    background-color: #eee;
-  }
-  
-  .welcome-padd{
-    padding: 40px 30px 30px 30px;
-  }
+    <link rel="stylesheet" href="styles/vendor.css">
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark nav-bar-header-bg navbar-height">
-    <div class="container-fluid">
-        <a class="navbar-brand text-white nav-logo">COMPAS</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent" *ngIf="showHead">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-header-color-a">
-                <li class="nav-item dropdown" *ngFor="let navbarItem of navbarItems;">
-                    <a class="nav-link" href="#" *ngIf="!navbarItem.dropdown">{{navbarItem.title}}</a>
-                    <ng-container *ngIf="navbarItem.dropdown && navbarItem.dropdown.length > 0">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            {{navbarItem.title}}
-                        </a>
-                        <ul class="dropdown-menu nav-bar-header-bg" aria-labelledby="navbarDropdown">
-                            <li class="nav-drop-header-subheader" *ngFor="let dropdownHeader of navbarItem.dropdown;">
-                                <h6 class="dropdown-header pb-0">{{dropdownHeader.header}}</h6>
-                                <ng-container *ngFor="let subHeader of dropdownHeader.subHeader;">
-                                    <a class="dropdown-item" href="#">{{subHeader.name}}</a>
-                                </ng-container>
-                            </li>
-                        </ul>
-                    </ng-container>
-                </li>
-            </ul>
-            <div class="d-flex">
-                <ul class="navbar-nav ">
-                    <li class="nav-item">
-                        <a class="nav-link text-white">
-                            <i class="fa fa-search nav-right-icon-bg"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white">
-                            <i class="fa fa-question nav-right-icon-bg"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white">
-                            <i class="fa fa-cog nav-right-icon-bg"></i>
-                        </a>
-                    </li>
-                </ul>
+    <link rel="stylesheet" href="styles/app.css">
+  </head>
+  <body ng-controller="indexController as cn">
+    <!--[if lt IE 10]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="assets\user-icon.png" width="30" height="30" class="rounded-circle">
-                            </a>
-                            <ul class="dropdown-menu nav-bar-header-bg nav-drop-header-subheader nav-user-dropdown"
-                                aria-labelledby="navbarDropdown">
-                                <li class="nav-drop-header-subheader">
-                                    <a class="dropdown-item">View Profile</a>
-                                </li>
-                                <li class="nav-drop-header-subheader">
-                                    <a class="dropdown-item" routerLink="login">Logout</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</nav>
+    <div ui-view></div>
+    <toaster-container></toaster-container>
+    <!-- below fix is for electron-jquery issue. https://stackoverflow.com/questions/32621988/electron-jquery-is-not-defined  -->
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
 
-.navbar-height{
-    height: 56px;
-}
+    <script src="scripts/vendor.js"></script>
 
-.nav-logo{
-    font-weight: bolder;    
-}
-
-.nav-right-icon-bg{
-    background-color: #5a718d;
-    padding: 4px;
-    border-radius: 5px;
-    width: 25px;
-    text-align: center;
-}
-
-.nav-bar-header-bg{
-    background-color: var(--header-background) !important;
-}
-
-.nav-header-color-a > li > a{
-    color: #FFFFFF;
-}
-
-.nav-user-dropdown{
-    left: auto !important;
-    right: 0px;
-}
-
-.nav-drop-header-subheader > h6{
-    color: #8997AD;
-    text-transform: uppercase;
-    font-size: 14px;
-}
-
-.nav-drop-header-subheader > a{
-    color: #EBEEF1;
-    font-size: 14px;
-}
-
-.navbar-nav .dropdown-menu {
-    position: absolute;
-    top: 50px;
-}
-
-.dropdown-item:hover, .dropdown-item:focus {
-    background-color: #1f6ab5 !important;
-}
-
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
-
-@Component({
-  selector: 'app-headermenu',
-  templateUrl: './headermenu.component.html',
-  styleUrls: ['./headermenu.component.scss']
-})
-export class HeadermenuComponent implements OnInit, OnChanges {
-  @Input() showHeader: boolean = false;
-  showHead: any;
-  
-  navbarItems: any = [
-    {
-      title: 'Billing', dropdown: [
-        { header: '', subHeader: [{ name: 'Person Search', component: '' }] },
-        { header: '', subHeader: [{ name: 'Another action', component: '' }] },
-        { header: '', subHeader: [{ name: 'Something else here', component: '' }] }
-      ]
-    },
-    {
-      title: 'Enrollment', dropdown: [
-        { header: 'HouseHolds', subHeader: [{ name: 'Person Search', component: '' }] },
-        { header: 'Applications', subHeader: [{ name: 'Enter Application Data', component: '' }] },
-        { header: 'Employer Accounts', subHeader: [{ name: 'Search', component: '' }, { name: 'Add', component: '' }] }
-      ]
-    },
-    {
-      title: 'Work Queue', component: ''
-    }
-  ]
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-  ngOnChanges() {
-    this.showHead = this.showHeader;
-  }
-
-}
-
-
-import { LoginComponent } from './login/login.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-
-const routes: Routes = [
-  { path: "", component: DashboardComponent },
-  { path: "login", component: LoginComponent },
-];
-
-<app-headermenu [showHeader]="showHead"></app-headermenu>
-<router-outlet></router-outlet>
-
-import { Component } from '@angular/core';
-import { Router, NavigationStart, NavigationEnd } from "@angular/router";
-
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
-})
-export class AppComponent {
-  showHead: boolean = false;
-
-  constructor(private router: Router) {
-  }
-
-  ngOnInit(): void {
-    this.router.events.forEach((event) => {
-      if (event instanceof NavigationStart) { 
-        if (event["url"] == "/login") {  
-          this.showHead = false;
-        } else {
-          this.showHead = true;
-        }
-      }
-    });
-  }
-  
-}
-
-/* You can add global styles to this file, and also import other style files */
-
-@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
-
-:root {
-  --header-background: #061B34;
-  --header-text: #111111;
-  --color-link: #125699;
-}
+    <script src="scripts/app.js"></script>
+    <script>if (window.module) module = window.module;</script>
+  </body>
+</html>
