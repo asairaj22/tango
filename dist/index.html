@@ -1,30 +1,141 @@
-<!doctype html>
-<html ng-app="pa">
-  <head>
-    <meta charset="utf-8">
-    <title page-title></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+<div class="login-component">
+    <div class="login-component-padd">
+        <div class="container">
+            <div class="row justify-content-md-center">
+                <div class="col-md-auto p-5 container-login-width">
+                    <img src="assets\login-logo.png" class="logo-img w-50">
+                    <p class="mt-5 login-text">Login</p>
+                    <form [formGroup]="loginForm" (ngSubmit)="onLoginUser()">
+                        <div class="form-group login-form-input">
+                            <label>Username</label>
+                            <input type="email" class="form-control" formControlName="username">
+                        </div>
+                        <div class="form-group login-form-input mt-4">
+                            <label>Password</label>
+                            <input type="password" class="form-control"formControlName="password">
+                        </div>
+                        <div class="mt-4">
+                            <button type="submit" class="btn btn-primary login-btn">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <link rel="stylesheet" href="styles/vendor.css">
+.login-component-padd{
+    padding: 40px 30px 30px 30px;
+}
 
-    <link rel="stylesheet" href="styles/app.css">
-  </head>
-  <body ng-controller="indexController as cn">
-    <!--[if lt IE 10]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
+.container-login-width{
+    width: 450px;
+    background: #fff;
+}
 
-    <div ui-view></div>
-    <toaster-container></toaster-container>
-    <!-- below fix is for electron-jquery issue. https://stackoverflow.com/questions/32621988/electron-jquery-is-not-defined  -->
-    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+.logo-img{
+    margin: 0 auto;
+    display: block;
+}
 
-    <script src="scripts/vendor.js"></script>
+.login-text{
+    font-weight: bolder;
+}
 
-    <script src="scripts/app.js"></script>
-    <script>if (window.module) module = window.module;</script>
-  </body>
-</html>
+.login-form-input > input{
+    padding: 3px;
+    background: #efef;
+}
+
+.login-btn{
+    background: #13529B;
+    border: #13529B;
+    text-transform: uppercase;
+    width: auto;
+    padding: 5px 8px;
+}
+
+
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
+})
+
+export class LoginComponent implements OnInit {
+  loginForm: FormGroup;
+  loginFormData = {};
+
+  constructor(private formBuilder: FormBuilder, private router: Router) { }
+
+  get f() {
+    return this.loginForm.controls;
+  }
+
+  ngOnInit(): void {
+    this.loginForm = this.formBuilder.group({
+      username: ["", [Validators.required, Validators.email]],
+      password: ["", [Validators.required, Validators.minLength(6)]],
+    });
+  }
+
+  onLoginUser() {
+    console.log(this.loginForm.value);
+    if (this.loginForm.invalid) {
+      return;
+    }
+
+    this.router.navigate(['/']);
+  }
+
+}
+
+
+
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { HeadermenuComponent } from './headermenu/headermenu.component';
+import { LoginComponent } from './login/login.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    HeadermenuComponent,
+    LoginComponent,
+    DashboardComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+
+body{
+  background-color: #eee;
+}
+
+input:focus, input.form-control:focus {
+  outline:none !important;
+  outline-width: 0 !important;
+  box-shadow: none;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+}
+
+
+"strictPropertyInitialization": false,
